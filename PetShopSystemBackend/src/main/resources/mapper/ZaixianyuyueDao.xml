@@ -17,6 +17,7 @@
         <result property="shouji" column="shouji"/>
         <result property="sfsh" column="sfsh"/>
         <result property="shhf" column="shhf"/>
+        <result property="comment" column="comment"/>
     </resultMap>
 
 	<select id="selectListVO"
@@ -42,7 +43,13 @@
 		resultType="com.entity.view.ZaixianyuyueView" >
 		SELECT * FROM zaixianyuyue  zaixianyuyue <where> 1=1 ${ew.sqlSegment}</where>
 	</select>
-	
+    <select id="existApply" resultType="com.entity.vo.ZaixianyuyueVO">
+        SELECT  t.* FROM zaixianyuyue t
+        where t.yishixingming = #{doctorName} and t.yuyueshijian &lt;= now()  and now() &lt;= date_add(t.yuyueshijian, interval 1 hour)
+        order by t.yuyueshijian desc
+        limit 1
+
+    </select>
 
 
 </mapper>

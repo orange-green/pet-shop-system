@@ -39,8 +39,13 @@ public class ZaixianyuyueServiceImpl extends ServiceImpl<ZaixianyuyueDao, Zaixia
 	    	return pageUtil;
  	}
 
-    
-    @Override
+	@Override
+	public ZaixianyuyueVO existApply(String doctorName) {
+		return baseMapper.existApply(doctorName);
+	}
+
+
+	@Override
 	public List<ZaixianyuyueVO> selectListVO(Wrapper<ZaixianyuyueEntity> wrapper) {
  		return baseMapper.selectListVO(wrapper);
 	}

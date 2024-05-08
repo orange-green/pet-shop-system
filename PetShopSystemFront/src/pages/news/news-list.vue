@@ -1,9 +1,9 @@
 <template>
   <div>
     <div
-        :style='{"border":"1px solid #E0E0E0","padding":"20px 0 10px","margin":"10px auto","borderRadius":"0","background":"none","borderWidth":"0 0 2px","display":"flex","width":"80%","justifyContent":"center"}'
-        class="breadcrumb-preview">
-      <el-breadcrumb :separator="'>'" :style='{"fontSize":"14px","lineHeight":"1"}'>
+      :style='{ "border": "1px solid #E0E0E0", "padding": "20px 0 10px", "margin": "10px auto", "borderRadius": "0", "background": "none", "borderWidth": "0 0 2px", "display": "flex", "width": "80%", "justifyContent": "center" }'
+      class="breadcrumb-preview">
+      <el-breadcrumb :separator="'>'" :style='{ "fontSize": "14px", "lineHeight": "1" }'>
         <el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
         <el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index"><a>{{ item.name }}</a>
         </el-breadcrumb-item>
@@ -11,140 +11,137 @@
     </div>
 
     <div class="news-preview-pv"
-         :style='{"width":"80%","boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.3)","padding":"0","margin":"10px auto","position":"relative","background":"#fff"}'>
+      :style='{ "width": "80%", "boxShadow": "0px 4px 10px 0px rgba(0,0,0,0.3)", "padding": "0", "margin": "10px auto", "position": "relative", "background": "#fff" }'>
       <el-form :inline="true" :model="formSearch" class="list-form-pv"
-               :style='{"padding":"10px","margin":"0 auto","alignItems":"center","flexWrap":"wrap","background":"#fff","display":"flex","width":"74%","justifyContent":"center","height":"auto"}'>
-        <el-form-item :style='{"margin":"0 10px"}'>
+        :style='{ "padding": "10px", "margin": "0 auto", "alignItems": "center", "flexWrap": "wrap", "background": "#fff", "display": "flex", "width": "74%", "justifyContent": "center", "height": "auto" }'>
+        <el-form-item :style='{ "margin": "0 10px" }'>
           <el-input v-model="title" placeholder="标题"></el-input>
         </el-form-item>
         <el-button type="primary" @click="getNewsList(1)"
-                   :style='{"cursor":"pointer","border":"0","padding":"0px 25px","margin":"0 10px 0 0","outline":"none","color":"#fff","borderRadius":"0","background":"#3B2E7E","width":"auto","fontSize":"14px","lineHeight":"42px","height":"42px"}'>
+          :style='{ "cursor": "pointer", "border": "0", "padding": "0px 25px", "margin": "0 10px 0 0", "outline": "none", "color": "#fff", "borderRadius": "0", "background": "#3B2E7E", "width": "auto", "fontSize": "14px", "lineHeight": "42px", "height": "42px" }'>
           <span class="icon iconfont icon-chakan14"
-                :style='{"color":"#fff","margin":"0 10px 0 0","fontSize":"14px"}'></span>
+            :style='{ "color": "#fff", "margin": "0 10px 0 0", "fontSize": "14px" }'></span>
           搜索
         </el-button>
       </el-form>
 
       <!-- category -->
       <div class="category"
-           :style='{"border":"1px solid #E0E0E0","padding":"10px","top":"10px","left":"15px","flexWrap":"wrap","background":"#fff","display":"flex","width":"calc(12% - 20px)","position":"absolute","height":"auto"}'>
+        :style='{ "border": "1px solid #E0E0E0", "padding": "10px", "top": "10px", "left": "15px", "flexWrap": "wrap", "background": "#fff", "display": "flex", "width": "calc(12% - 20px)", "position": "absolute", "height": "auto" }'>
         <div class="item" @click="categoryClick(0)" :class="categoryIndex == 0 ? 'active' : ''">全部</div>
-        <div v-for="(item,index) in categoryList" @click="categoryClick(index+1)" :key="index" class="item"
-             :class="categoryIndex == index+1 ? 'active' : ''">{{ item.typename }}
+        <div v-for="(item, index) in categoryList" @click="categoryClick(index + 1)" :key="index" class="item"
+          :class="categoryIndex == index + 1 ? 'active' : ''">{{ item.typename }}
         </div>
       </div>
 
 
       <!-- 样式三 -->
-      <div class="list3 index-pv1" :style='{"width":"74%","margin":"0 auto","height":"auto"}'>
+      <div class="list3 index-pv1" :style='{ "width": "74%", "margin": "0 auto", "height": "auto" }'>
         <div
-            :style='{"border":"1px solid #E0E0E0","padding":"30px 20px","margin":"0 0 10px","background":"#fff","width":"100%","position":"relative","height":"auto"}'
-            v-for="item in newsList" :key="item.id" @click="toNewsDetail(item)" class="list-item animation-box">
+          :style='{ "border": "1px solid #E0E0E0", "padding": "30px 20px", "margin": "0 0 10px", "background": "#fff", "width": "100%", "position": "relative", "height": "auto" }'
+          v-for="item in newsList" :key="item.id" @click="toNewsDetail(item)" class="list-item animation-box">
           <div
-              :style='{"whiteSpace":"nowrap","overflow":"hidden","color":"#000","width":"calc(100% - 100px)","lineHeight":"32px","fontSize":"18px","textOverflow":"ellipsis","fontWeight":"bold"}'
-              class="title ">{{ item.title }}
+            :style='{ "whiteSpace": "nowrap", "overflow": "hidden", "color": "#000", "width": "calc(100% - 100px)", "lineHeight": "32px", "fontSize": "18px", "textOverflow": "ellipsis", "fontWeight": "bold" }'
+            class="title ">{{ item.title }}
           </div>
           <div
-              :style='{"padding":"10px 0 0","overflow":"hidden","color":"#4D4D4D","display":"-webkit-box","width":"100%","lineHeight":"1.8","fontSize":"15px","textOverflow":"ellipsis","-webkit-box-orient":"vertical","-webkit-line-clamp":"5"}'
-              class="introduction ">{{ item.introduction }}
+            :style='{ "padding": "10px 0 0", "overflow": "hidden", "color": "#4D4D4D", "display": "-webkit-box", "width": "100%", "lineHeight": "1.8", "fontSize": "15px", "textOverflow": "ellipsis", "-webkit-box-orient": "vertical", "-webkit-line-clamp": "5" }'
+            class="introduction ">{{ item.introduction }}
           </div>
-          <div :style='{"float":"right","padding":"0 0 0 10px","display":"inline-block"}'>
+          <div :style='{ "float": "right", "padding": "0 0 0 10px", "display": "inline-block" }'>
             <span class="icon iconfont icon-shijian21"
-                  :style='{"margin":"0 2px 0 0","lineHeight":"1.5","fontSize":"12px","color":"#666"}'></span>
-            <span :style='{"color":"#666","lineHeight":"1.5","fontSize":"12px"}'>{{ item.addtime }}</span>
+              :style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "12px", "color": "#666" }'></span>
+            <span :style='{ "color": "#666", "lineHeight": "1.5", "fontSize": "12px" }'>{{ item.addtime }}</span>
           </div>
-          <div :style='{"float":"right","padding":"0 0 0 10px","display":"inline-block"}'>
+          <div :style='{ "float": "right", "padding": "0 0 0 10px", "display": "inline-block" }'>
             <span class="icon iconfont icon-geren16"
-                  :style='{"margin":"0 2px 0 0","lineHeight":"1.5","fontSize":"12px","color":"#666"}'></span>
-            <span :style='{"color":"#666","lineHeight":"1.5","fontSize":"12px"}'>{{ item.name }}</span>
+              :style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "12px", "color": "#666" }'></span>
+            <span :style='{ "color": "#666", "lineHeight": "1.5", "fontSize": "12px" }'>{{ item.name }}</span>
           </div>
-          <div :style='{"float":"right","padding":"0 0 0 10px","display":"inline-block"}'>
+          <div :style='{ "float": "right", "padding": "0 0 0 10px", "display": "inline-block" }'>
             <span class="icon iconfont icon-zan10"
-                  :style='{"margin":"0 2px 0 0","lineHeight":"1.5","fontSize":"12px","color":"#666"}'></span>
-            <span :style='{"color":"#666","lineHeight":"1.5","fontSize":"12px"}'>{{ item.thumbsupnum }}</span>
+              :style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "12px", "color": "#666" }'></span>
+            <span :style='{ "color": "#666", "lineHeight": "1.5", "fontSize": "12px" }'>{{ item.thumbsupnum }}</span>
           </div>
-          <div :style='{"float":"right","padding":"0 0 0 10px","display":"inline-block"}'>
+          <div :style='{ "float": "right", "padding": "0 0 0 10px", "display": "inline-block" }'>
             <span class="icon iconfont icon-shoucang10"
-                  :style='{"margin":"0 2px 0 0","lineHeight":"1.5","fontSize":"12px","color":"#666"}'></span>
-            <span :style='{"color":"#666","lineHeight":"1.5","fontSize":"12px"}'>{{ item.storeupnum }}</span>
+              :style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "12px", "color": "#666" }'></span>
+            <span :style='{ "color": "#666", "lineHeight": "1.5", "fontSize": "12px" }'>{{ item.storeupnum }}</span>
           </div>
-          <div :style='{"float":"right","padding":"0 0 0 10px","display":"inline-block"}'>
+          <div :style='{ "float": "right", "padding": "0 0 0 10px", "display": "inline-block" }'>
             <span class="icon iconfont icon-chakan9"
-                  :style='{"margin":"0 2px 0 0","lineHeight":"1.5","fontSize":"12px","color":"#666"}'></span>
-            <span :style='{"color":"#666","lineHeight":"1.5","fontSize":"12px"}'>{{ item.clicknum }}</span>
+              :style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "12px", "color": "#666" }'></span>
+            <span :style='{ "color": "#666", "lineHeight": "1.5", "fontSize": "12px" }'>{{ item.clicknum }}</span>
           </div>
           <div
-              :style='{"padding":"0 10px","color":"#fff","top":"30px","textAlign":"center","background":"#333","display":"block","width":"80px","fontSize":"14px","lineHeight":"32px","position":"absolute","right":"20px"}'
-              class="tags ">新闻动态
+            :style='{ "padding": "0 10px", "color": "#fff", "top": "30px", "textAlign": "center", "background": "#333", "display": "block", "width": "80px", "fontSize": "14px", "lineHeight": "32px", "position": "absolute", "right": "20px" }'
+            class="tags ">新闻动态
           </div>
         </div>
       </div>
 
 
-      <el-pagination
-          background
-          id="pagination" class="pagination"
-          :pager-count="7"
-          :page-size="pageSize"
-          prev-text="上一页"
-          next-text="下一页"
-          :hide-on-single-page="true"
-          :layout='["prev","pager","next"].join()'
-          :total="total"
-          :style='{"padding":"0","margin":"10px auto","whiteSpace":"nowrap","color":"#333","textAlign":"center","width":"1200px","fontWeight":"500"}'
-          @current-change="curChange"
-          @prev-click="prevClick"
-          @next-click="nextClick"
-      ></el-pagination>
+      <el-pagination background id="pagination" class="pagination" :pager-count="7" :page-size="pageSize"
+        prev-text="上一页" next-text="下一页" :hide-on-single-page="true" :layout='["prev", "pager", "next"].join()'
+        :total="total"
+        :style='{ "padding": "0", "margin": "10px auto", "whiteSpace": "nowrap", "color": "#333", "textAlign": "center", "width": "1200px", "fontWeight": "500" }'
+        @current-change="curChange" @prev-click="prevClick" @next-click="nextClick"></el-pagination>
 
       <!-- 热门信息 -->
       <div class="hot"
-           :style='{"border":"1px solid #E0E0E0","boxShadow":"none","padding":"0 0","top":"10px","background":"#fff","width":"calc(12% - 20px)","position":"absolute","right":"15px","height":"auto"}'>
+        :style='{ "border": "1px solid #E0E0E0", "boxShadow": "none", "padding": "0 0", "top": "10px", "background": "#fff", "width": "calc(12% - 20px)", "position": "absolute", "right": "15px", "height": "auto" }'>
         <div
-            :style='{"color":"#000","textAlign":"center","background":"#F8F8F8","width":"100%","lineHeight":"60px","fontSize":"16px","fontWeight":"bold"}'>
+          :style='{ "color": "#000", "textAlign": "center", "background": "#F8F8F8", "width": "100%", "lineHeight": "60px", "fontSize": "16px", "fontWeight": "bold" }'>
           热门信息
         </div>
-        <div :style='{"width":"100%","padding":"0 0 5px 0","background":"#fff","height":"auto"}'>
+        <div :style='{ "width": "100%", "padding": "0 0 5px 0", "background": "#fff", "height": "auto" }'>
           <div v-for="item in hotList" :key="item.id"
-               :style='{"width":"100%","padding":"5px 10px 0","background":"#fff","height":"auto"}'
-               @click="toNewsDetail(item)">
-            <img :style='{"width":"100%","objectFit":"cover","display":"block","height":"75px"}'
-                 :src="baseUrl + item.picture" alt="">
+            :style='{ "width": "100%", "padding": "5px 10px 0", "background": "#fff", "height": "auto" }'
+            @click="toNewsDetail(item)">
+            <img :style='{ "width": "100%", "objectFit": "cover", "display": "block", "height": "75px" }'
+              :src="baseUrl + item.picture" alt="">
             <div
-                :style='{"padding":"4px 5px 0","lineHeight":"1.5","fontSize":"16px","color":"#000","textAlign":"center"}'>
+              :style='{ "padding": "4px 5px 0", "lineHeight": "1.5", "fontSize": "16px", "color": "#000", "textAlign": "center" }'>
               {{ item.title }}
             </div>
             <div
-                :style='{"padding":"0 5px","lineHeight":"1.4","fontSize":"12px","color":"#4d4d4d","textAlign":"center"}'>
+              :style='{ "padding": "0 5px", "lineHeight": "1.4", "fontSize": "12px", "color": "#4d4d4d", "textAlign": "center" }'>
               {{ item.addtime }}
             </div>
           </div>
         </div>
       </div>
       <!-- 最新动态 -->
-      <div class="news" :style='{"width":"74%","margin":"0 auto","background":"#fff","height":"auto"}'>
+      <div class="news" :style='{ "width": "74%", "margin": "0 auto", "background": "#fff", "height": "auto" }'>
         <div
-            :style='{"padding":"0 0","color":"#000","background":"none","width":"100%","lineHeight":"44px","fontSize":"18px","fontWeight":"bold"}'>
+          :style='{ "padding": "0 0", "color": "#000", "background": "none", "width": "100%", "lineHeight": "44px", "fontSize": "18px", "fontWeight": "bold" }'>
           最新动态
         </div>
         <div
-            :style='{"width":"100%","padding":"20px 0","background":"#fff","justifyContent":"space-between","display":"flex","height":"auto"}'>
-          <div v-for="item in recommendList" :key="item.id" :style='{"width":"23%","background":"#fff","height":"auto"}'
-               @click="toNewsDetail(item)">
-            <img :style='{"width":"100%","objectFit":"cover","display":"block","height":"150px"}'
-                 :src="baseUrl + item.picture" alt="">
-            <div :style='{"padding":"0 10px","lineHeight":"1.7","fontSize":"16px","color":"#000","textAlign":"center"}'>
+          :style='{ "width": "100%", "padding": "20px 0", "background": "#fff", "justifyContent": "space-between", "display": "flex", "height": "auto" }'>
+          <div v-for="item in recommendList" :key="item.id"
+            :style='{ "width": "23%", "background": "#fff", "height": "auto" }' @click="toNewsDetail(item)">
+            <img :style='{ "width": "100%", "objectFit": "cover", "display": "block", "height": "150px" }'
+              :src="baseUrl + item.picture" alt="">
+            <div
+              :style='{ "padding": "0 10px", "lineHeight": "1.7", "fontSize": "16px", "color": "#000", "textAlign": "center" }'>
               {{ item.title }}
             </div>
             <div
-                :style='{"padding":"0 10px","lineHeight":"1.5","fontSize":"14px","color":"#4d4d4d","textAlign":"center"}'>
+              :style='{ "padding": "0 10px", "lineHeight": "1.5", "fontSize": "14px", "color": "#4d4d4d", "textAlign": "center" }'>
               {{ item.addtime }}
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="footer">
+      <div class="gotop" v-show="gotop" @click="toTop">Top</div>
+    </div>
   </div>
+
+
 </template>
 
 <script>
@@ -168,7 +165,14 @@ export default {
       categoryList: [],
       hotList: [],
       recommendList: [],
+      gotop: false,
     }
+  },
+
+
+  mounted() {
+    // 此处true需要加上，不加滚动事件可能绑定不成功
+    window.addEventListener("scroll", this.handleScroll, true);
   },
   created() {
     this.getCategoryList()
@@ -190,13 +194,13 @@ export default {
       this.getNewsList()
     },
     getNewsList(page) {
-      let params = {page, limit: this.pageSize, sort: 'addtime', order: 'desc'};
+      let params = { page, limit: this.pageSize, sort: 'addtime', order: 'desc' };
       let searchWhere = {};
       if (this.title != '') searchWhere.title = '%' + this.title + '%';
       if (this.categoryIndex != 0) {
         searchWhere.typename = this.categoryList[this.categoryIndex - 1].typename
       }
-      this.$http.get('news/list', {params: Object.assign(params, searchWhere)}).then(res => {
+      this.$http.get('news/list', { params: Object.assign(params, searchWhere) }).then(res => {
         if (res.data.code == 0) {
           this.newsList = res.data.data.list;
           this.total = res.data.data.total;
@@ -206,8 +210,8 @@ export default {
       });
     },
     getHotList() {
-      let params = {page: 1, limit: 4, sort: 'addtime', order: 'desc'};
-      this.$http.get('news/autoSort', {params: params}).then(res => {
+      let params = { page: 1, limit: 4, sort: 'addtime', order: 'desc' };
+      this.$http.get('news/autoSort', { params: params }).then(res => {
         if (res.data.code == 0) {
           this.hotList = res.data.data.list;
         }
@@ -218,8 +222,8 @@ export default {
       if (localStorage.getItem('frontToken')) {
         url = 'news/autoSort2'
       }
-      let params = {page: 1, limit: 4, sort: 'addtime', order: 'desc'};
-      this.$http.get(url, {params: params}).then(res => {
+      let params = { page: 1, limit: 4, sort: 'addtime', order: 'desc' };
+      this.$http.get(url, { params: params }).then(res => {
         if (res.data.code == 0) {
           this.recommendList = res.data.data.list;
         }
@@ -235,8 +239,26 @@ export default {
       this.getNewsList(page);
     },
     toNewsDetail(item) {
-      this.$router.push({path: '/index/newsDetail', query: {id: item.id}});
+      this.$router.push({ path: '/index/newsDetail', query: { id: item.id } });
+    },
+    handleScroll() {
+      let scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+      scrolltop > 30 ? (this.gotop = true) : (this.gotop = false);
+    },
+
+    toTop() {
+
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      // 实现滚动效果 
+      const timeTop = setInterval(() => {
+        document.body.scrollTop = document.documentElement.scrollTop = top -= 50;
+        if (top <= 0) {
+          clearInterval(timeTop);
+        }
+      }, 10);
     }
+
+
   }
 }
 </script>
@@ -583,7 +605,7 @@ export default {
 
 .news-preview-pv .category .item:hover {
   color: #fff;
-  background: #3B2E7E;
+  background: red;
 }
 
 .news-preview-pv .category .item.active {
@@ -616,5 +638,17 @@ export default {
 
 .news-preview-pv .list9 .item:hover .info {
   bottom: 0;
+}
+
+.footer .gotop {
+  text-align: center;
+  position: fixed;
+  right: 50px;
+  bottom: 170px;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 50%;
+  background: #3B2E7E;
+  color: white;
 }
 </style>

@@ -35,6 +35,14 @@ node下载地址：[Index of /dist/v12.10.0/ (nodejs.org)](https://nodejs.org/di
 
 使用node -v 查看node版本
 
+
+
+```js
+#npm换国内源
+npm config set registry https://registry.npmmirror.com
+
 使用npm install 安装前端所需要的依赖
 
 使用npm run serve 启用前端项目
+```
+

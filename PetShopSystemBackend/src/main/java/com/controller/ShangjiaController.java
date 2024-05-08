@@ -92,6 +92,9 @@ public class ShangjiaController {
 		}
 		Long uId = new Date().getTime();
 		shangjia.setId(uId);
+
+		// 刚注册的商家设置为锁定状态, 需要通过管理员审批后进行解锁，才能登录系统
+        shangjia.setStatus(1);
         shangjiaService.insert(shangjia);
         return R.ok();
     }

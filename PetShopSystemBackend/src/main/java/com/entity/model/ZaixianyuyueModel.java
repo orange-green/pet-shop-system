@@ -90,6 +90,10 @@ public class ZaixianyuyueModel  implements Serializable {
 	 */
 	
 	private String shhf;
+
+
+	// 服务评论
+	private String comment;
 				
 	
 	/**
@@ -266,5 +270,13 @@ public class ZaixianyuyueModel  implements Serializable {
 	public String getShhf() {
 		return shhf;
 	}
-			
+
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 }

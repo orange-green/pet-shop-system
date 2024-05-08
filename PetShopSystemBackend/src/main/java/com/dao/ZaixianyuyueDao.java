@@ -31,6 +31,7 @@ public interface ZaixianyuyueDao extends BaseMapper<ZaixianyuyueEntity> {
 
 	
 	ZaixianyuyueView selectView(@Param("ew") Wrapper<ZaixianyuyueEntity> wrapper);
-	
 
+
+	ZaixianyuyueVO existApply(@Param("doctorName") String doctorName);
 }

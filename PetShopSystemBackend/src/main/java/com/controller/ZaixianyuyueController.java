@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.entity.vo.ZaixianyuyueVO;
 import com.utils.ValidatorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +52,6 @@ import java.io.IOException;
 public class ZaixianyuyueController {
     @Autowired
     private ZaixianyuyueService zaixianyuyueService;
-
-
-
-
-    
-
-
 
     /**
      * 后台列表
@@ -114,7 +108,32 @@ public class ZaixianyuyueController {
 		ZaixianyuyueView zaixianyuyueView =  zaixianyuyueService.selectView(ew);
 		return R.ok("查询在线预约成功").put("data", zaixianyuyueView);
     }
-	
+
+
+    @RequestMapping("/query/exist")
+    public R exist(ZaixianyuyueEntity zaixianyuyue){
+        EntityWrapper< ZaixianyuyueEntity> ew = new EntityWrapper< ZaixianyuyueEntity>();
+
+//        ew.eq("yishixingming", zaixianyuyue.getYishixingming()).between("yuyueshijian", new Date())
+        String msg = "不存在预约";
+        ZaixianyuyueVO zaixianyuyueVO = zaixianyuyueService.existApply(zaixianyuyue.getYishixingming());
+        if (zaixianyuyueVO != null) {
+            msg = "已存在预约";
+        }
+        return R.ok(msg).put("exist", msg).put("data", zaixianyuyueVO);
+    }
+
+
+    @RequestMapping("/query/finish")
+    public R finish(ZaixianyuyueEntity zaixianyuyue){
+        EntityWrapper< ZaixianyuyueEntity> ew = new EntityWrapper< ZaixianyuyueEntity>();
+        ew.eq("yishixingming", zaixianyuyue.getYishixingming()).eq("sfsh", "待审核");
+        ZaixianyuyueView zaixianyuyueView =  zaixianyuyueService.selectView(ew);
+        return R.ok("存在未完成的预约").put("data", zaixianyuyueView);
+    }
+
+
+
     /**
      * 后台详情
      */
@@ -168,6 +187,7 @@ public class ZaixianyuyueController {
     @Transactional
     public R update(@RequestBody ZaixianyuyueEntity zaixianyuyue, HttpServletRequest request){
         //ValidatorUtils.validateEntity(zaixianyuyue);
+
         zaixianyuyueService.updateById(zaixianyuyue);//全部更新
         return R.ok();
     }
@@ -200,8 +220,9 @@ public class ZaixianyuyueController {
         zaixianyuyueService.deleteBatchIds(Arrays.asList(ids));
         return R.ok();
     }
-    
-	
+
+
+
 
 
 

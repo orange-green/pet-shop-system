@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import com.entity.ZaixianyuyueEntity;
+import com.entity.vo.ZaixianyuyueVO;
+import com.service.ZaixianyuyueService;
 import com.utils.ValidatorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +59,9 @@ public class YishiController {
 
     @Autowired
     private StoreupService storeupService;
+
+    @Autowired
+    private ZaixianyuyueService zaixianyuyueService;
 
 
 
@@ -288,8 +294,32 @@ public class YishiController {
      */
     @RequestMapping("/delete")
     public R delete(@RequestBody Long[] ids){
-        yishiService.deleteBatchIds(Arrays.asList(ids));
-        return R.ok();
+
+        boolean flag = false;
+
+        // 有预约未完成的医生不能删除
+        List<YishiEntity> yishiEntities = yishiService.selectBatchIds(Arrays.asList(ids));
+        for (YishiEntity yishi: yishiEntities) {
+            EntityWrapper<ZaixianyuyueEntity> ew = new EntityWrapper<ZaixianyuyueEntity>();
+            ew.eq("yishixingming", yishi.getYishixingming()).eq("sfsh", "待审核");
+            List<ZaixianyuyueVO> zaixianyuyueVOS = zaixianyuyueService.selectListVO(ew);
+
+            if (zaixianyuyueVOS != null || zaixianyuyueVOS.size() > 0) {
+                flag = true;
+                break;
+
+            }
+
+        }
+
+        if (flag) {
+            return R.ok().put("msg", "该医师有未完成的预约");
+        }
+        else {
+            yishiService.deleteBatchIds(Arrays.asList(ids));
+            return R.ok();
+        }
+
     }
     
 	

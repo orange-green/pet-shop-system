@@ -104,6 +104,10 @@ public class ShangjiaEntity<T> implements Serializable {
 	 */
 					
 	private Integer status;
+
+
+	// 经营凭证的图片
+	private String lisenceimage;
 	
 	
 	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
@@ -233,4 +237,12 @@ public class ShangjiaEntity<T> implements Serializable {
 		return status;
 	}
 
+
+	public String getLisenceimage() {
+		return lisenceimage;
+	}
+
+	public void setLisenceimage(String lisenceimage) {
+		this.lisenceimage = lisenceimage;
+	}
 }

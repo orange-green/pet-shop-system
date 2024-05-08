@@ -4,8 +4,8 @@
 			class="breadcrumb-preview">
 			<el-breadcrumb :separator="'>'" :style='{ "fontSize": "14px", "lineHeight": "1" }'>
 				<el-breadcrumb-item class="item1" to="/"><a>首页</a></el-breadcrumb-item>
-				<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem"
-					:key="index"><a>{{ item.name }}</a></el-breadcrumb-item>
+				<el-breadcrumb-item class="item2" v-for="(item, index) in breadcrumbItem" :key="index"><a>{{ item.name
+						}}</a></el-breadcrumb-item>
 			</el-breadcrumb>
 		</div>
 		<div v-if="centerType"
@@ -64,9 +64,11 @@
 					<span :style='{ "margin": "0 6px 0 0", "lineHeight": "40px", "fontSize": "15px", "color": "#000" }'
 						class="icon iconfont icon-liulan05" v-if="sortType != 'clicknum'"></span>
 					<span :style='{ "margin": "0 6px 0 0", "lineHeight": "40px", "fontSize": "15px", "color": "#000" }'
-						class="icon iconfont icon-jiantou35" v-else-if="sortType == 'clicknum' && sortOrder == 'desc'"></span>
+						class="icon iconfont icon-jiantou35"
+						v-else-if="sortType == 'clicknum' && sortOrder == 'desc'"></span>
 					<span :style='{ "margin": "0 6px 0 0", "lineHeight": "40px", "fontSize": "15px", "color": "#000" }'
-						class="icon iconfont icon-jiantou36" v-else-if="sortType == 'clicknum' && sortOrder == 'asc'"></span>
+						class="icon iconfont icon-jiantou36"
+						v-else-if="sortType == 'clicknum' && sortOrder == 'asc'"></span>
 					<span :style='{ "color": "#000", "lineHeight": "40px", "fontSize": "15px" }'>点击量</span>
 				</el-button>
 				<el-button :style='{ "border": "0", "padding": "0 5px", "margin": "0 5px", "borderRadius": "8px" }'
@@ -82,7 +84,8 @@
 					<span :style='{ "color": "#333", "lineHeight": "40px", "fontSize": "14px" }'>收藏数</span>
 				</el-button>
 			</div>
-			<div class="list" :style='{ "width": "100%", "padding": "20px 0", "margin": "0 0 10px", "background": "#fff" }'>
+			<div class="list"
+				:style='{ "width": "100%", "padding": "20px 0", "margin": "0 0 10px", "background": "#fff" }'>
 				<!-- 样式一 -->
 				<div class="list1 index-pv1"
 					:style='{ "width": "100%", "padding": "0 10px", "flexWrap": "wrap", "background": "#fff", "display": "block", "height": "auto" }'>
@@ -91,8 +94,8 @@
 						class="list-item animation-box">
 						<img @click.stop="imgPreView(item.touxiang)"
 							:style='{ "width": "100%", "objectFit": "cover", "display": "block", "height": "275px", "order": "1" }'
-							v-if="item.touxiang && item.touxiang.substr(0, 4) == 'http'" :src="item.touxiang.split(',')[0]"
-							class="image" />
+							v-if="item.touxiang && item.touxiang.substr(0, 4) == 'http'"
+							:src="item.touxiang.split(',')[0]" class="image" />
 						<img @click.stop="imgPreView(baseUrl + (item.touxiang ? item.touxiang.split(',')[0] : ''))"
 							:style='{ "width": "100%", "objectFit": "cover", "display": "block", "height": "275px", "order": "1" }'
 							v-else :src="baseUrl + (item.touxiang ? item.touxiang.split(',')[0] : '')" class="image" />
@@ -110,32 +113,39 @@
 
 						<div :style='{ "padding": "10px 0", "color": "#444", "textAlign": "center", "width": "100%", "lineHeight": "1.5", "fontSize": "20px", "fontWeight": "bold", "order": "3" }'
 							class="name ">{{ item.gerenjianjie }}</div>
-						<div :style='{ "width": "auto", "padding": "10px 10px 0", "textAlign": "center", "order": "8" }'>
-							<span class="icon iconfont icon-shijian21"
-								:style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "14px", "color": "#909090" }'></span>
-							<span class="text"
-								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{ item.addtime }}</span>
-						</div>
+
 						<div
-							:style='{ "width": "40%", "padding": "10px 10px 0 ", "textAlign": "center", "display": "inline-block", "order": "7" }'>
+							:style='{ "width": "50%", "padding": "10px 10px 0 ", "textAlign": "center", "display": "inline-block", "order": "7" }'>
 							<span class="icon iconfont icon-geren16"
 								:style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "14px", "color": "#909090" }'></span>
 							<span class="text"
-								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{ item.dianpumingcheng }}</span>
+								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{
+									item.dianpumingcheng }}</span>
 						</div>
 						<div
-							:style='{ "width": "calc(100% / 3)", "padding": "0 10px", "textAlign": "center", "display": "inline-block", "order": "5" }'>
+							:style='{ "width": "calc(100% / 5)", "padding": "0 10px", "textAlign": "center", "display": "inline-block", "order": "5" }'>
 							<span class="icon iconfont icon-shoucang10"
 								:style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "14px", "color": "#909090" }'></span>
 							<span class="text"
-								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{ item.storeupnum }}</span>
+								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{
+									item.storeupnum }}</span>
 						</div>
-						<div :style='{ "width": "calc(100% / 3)", "padding": "0 10px", "textAlign": "center", "display": "inline-block", "order": "6" }'
+						<div :style='{ "width": "calc(100% / 5)", "padding": "0 10px", "textAlign": "center", "display": "inline-block", "order": "6" }'
 							v-if="item.clicknum">
 							<span class="icon iconfont icon-chakan9"
 								:style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "14px", "color": "#909090" }'></span>
 							<span class="text"
-								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{ item.clicknum }}</span>
+								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{
+									item.clicknum }}</span>
+						</div>
+
+						<div
+							:style='{ "width": "auto", "padding": "10px 10px 0", "textAlign": "center", "order": "8" }'>
+							<span class="icon iconfont icon-shijian21"
+								:style='{ "margin": "0 2px 0 0", "lineHeight": "1.5", "fontSize": "14px", "color": "#909090" }'></span>
+							<span class="text"
+								:style='{ "color": "#909090", "lineHeight": "1.5", "fontSize": "14px" }'>{{ item.addtime
+								}}</span>
 						</div>
 					</div>
 				</div>

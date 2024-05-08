@@ -67,6 +67,10 @@ public class ShangjiaVO  implements Serializable {
 	 */
 	
 	private Integer status;
+
+
+	// 经营凭证的图片
+	private String lisenceimage;
 				
 	
 	/**
@@ -195,5 +199,12 @@ public class ShangjiaVO  implements Serializable {
 	public Integer getStatus() {
 		return status;
 	}
-			
+
+	public String getLisenceimage() {
+		return lisenceimage;
+	}
+
+	public void setLisenceimage(String lisenceimage) {
+		this.lisenceimage = lisenceimage;
+	}
 }

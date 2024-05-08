@@ -1,95 +1,74 @@
 <template>
   <div
-      :style='{"width":"80%","padding":"20px","boxShadow":"0px 4px 10px 0px rgba(0,0,0,0.3)","margin":"10px auto","position":"relative","background":"#fff"}'>
-    <el-form
-        ref="ruleForm"
-        :model="ruleForm"
-        :rules="rules"
-        :style='{"width":"100%","position":"relative","flexWrap":"wrap","display":"flex"}'
-        class="add-update-preview"
-        label-width="80px"
-    >
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="订单编号"
-                    prop="dingdanbianhao">
+    :style='{ "width": "80%", "padding": "20px", "boxShadow": "0px 4px 10px 0px rgba(0,0,0,0.3)", "margin": "10px auto", "position": "relative", "background": "#fff" }'>
+    <el-form ref="ruleForm" :model="ruleForm" :rules="rules"
+      :style='{ "width": "100%", "position": "relative", "flexWrap": "wrap", "display": "flex" }'
+      class="add-update-preview" label-width="80px">
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="订单编号" prop="dingdanbianhao">
         <el-input v-model="ruleForm.dingdanbianhao" disabled placeholder="订单编号"></el-input>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="账号"
-                    prop="zhanghao">
-        <el-input v-model="ruleForm.zhanghao"
-                  :disabled="true  ||ro.zhanghao" clearable placeholder="账号"></el-input>
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="账号" prop="zhanghao">
+        <el-input v-model="ruleForm.zhanghao" :disabled="true || ro.zhanghao" clearable placeholder="账号"></el-input>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="姓名"
-                    prop="yishixingming">
-        <el-input v-model="ruleForm.yishixingming"
-                  :disabled="true  ||ro.yishixingming" clearable placeholder="姓名"></el-input>
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="姓名" prop="yishixingming">
+        <el-input v-model="ruleForm.yishixingming" :disabled="true || ro.yishixingming" clearable
+          placeholder="姓名"></el-input>
       </el-form-item>
-      <el-form-item v-if="type!='cross' || (type=='cross' && !ro.touxiang)" :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}'
-                    label="头像" prop="touxiang">
-        <file-upload
-            :fileUrls="ruleForm.touxiang?ruleForm.touxiang:''"
-            :limit="3"
-            :multiple="true"
-            action="file/upload"
-            tip="点击上传头像"
-            @change="touxiangUploadChange"
-        ></file-upload>
+      <el-form-item v-if="type != 'cross' || (type == 'cross' && !ro.touxiang)"
+        :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }' label="头像"
+        prop="touxiang">
+        <file-upload :fileUrls="ruleForm.touxiang ? ruleForm.touxiang : ''" :limit="3" :multiple="true"
+          action="file/upload" tip="点击上传头像" @change="touxiangUploadChange"></file-upload>
       </el-form-item>
-      <el-form-item v-else :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}'
-                    class="upload" label="头像" prop="touxiang">
-        <img v-if="ruleForm.touxiang.substring(0,4)=='http'" v-bind:key="index" :src="ruleForm.touxiang.split(',')[0]"
-             class="upload-img" height="100" style="margin-right:20px;" width="100">
-        <img v-for="(item,index) in ruleForm.touxiang.split(',')" v-else v-bind:key="index" :src="baseUrl+item"
-             class="upload-img" height="100" style="margin-right:20px;" width="100">
+      <el-form-item v-else :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        class="upload" label="头像" prop="touxiang">
+        <img v-if="ruleForm.touxiang.substring(0, 4) == 'http'" v-bind:key="index"
+          :src="ruleForm.touxiang.split(',')[0]" class="upload-img" height="100" style="margin-right:20px;" width="100">
+        <img v-for="(item, index) in ruleForm.touxiang.split(',')" v-else v-bind:key="index" :src="baseUrl + item"
+          class="upload-img" height="100" style="margin-right:20px;" width="100">
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="宠物昵称"
-                    prop="chongwunicheng">
-        <el-input v-model="ruleForm.chongwunicheng"
-                  :disabled=" false  ||ro.chongwunicheng" clearable placeholder="宠物昵称"></el-input>
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="宠物昵称" prop="chongwunicheng">
+        <el-input v-model="ruleForm.chongwunicheng" :disabled="false || ro.chongwunicheng" clearable
+          placeholder="宠物昵称"></el-input>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="预约时间"
-                    prop="yuyueshijian">
-        <el-date-picker
-            v-model="ruleForm.yuyueshijian"
-            :disabled=" false  ||ro.yuyueshijian"
-            :picker-options="yuyueshijianPickerOptions"
-            placeholder="预约时间"
-            type="datetime"
-            value-format="yyyy-MM-dd HH:mm:ss">
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="预约时间" prop="yuyueshijian">
+        <el-date-picker v-model="ruleForm.yuyueshijian" :disabled="false || ro.yuyueshijian"
+          :picker-options="yuyueshijianPickerOptions" placeholder="预约时间" type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss">
         </el-date-picker>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="用户名"
-                    prop="yonghuming">
-        <el-input v-model="ruleForm.yonghuming"
-                  :disabled="true  ||ro.yonghuming" clearable placeholder="用户名"></el-input>
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="用户名" prop="yonghuming">
+        <el-input v-model="ruleForm.yonghuming" :disabled="true || ro.yonghuming" clearable
+          placeholder="用户名"></el-input>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="姓名"
-                    prop="xingming">
-        <el-input v-model="ruleForm.xingming"
-                  :disabled="true  ||ro.xingming" clearable placeholder="姓名"></el-input>
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="姓名" prop="xingming">
+        <el-input v-model="ruleForm.xingming" :disabled="true || ro.xingming" clearable placeholder="姓名"></el-input>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="手机"
-                    prop="shouji">
-        <el-input v-model="ruleForm.shouji"
-                  :disabled="true  ||ro.shouji" clearable placeholder="手机"></el-input>
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="手机" prop="shouji">
+        <el-input v-model="ruleForm.shouji" :disabled="true || ro.shouji" clearable placeholder="手机"></el-input>
       </el-form-item>
-      <el-form-item :style='{"width":"50%","padding":"10px","margin":"0 0 10px","background":"none"}' label="预约说明"
-                    prop="yuyueshuoming">
-        <el-input
-            v-model="ruleForm.yuyueshuoming"
-            :rows="8"
-            placeholder="预约说明"
-            type="textarea">
+      <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="预约说明" prop="yuyueshuoming">
+        <el-input v-model="ruleForm.yuyueshuoming" :rows="8" placeholder="预约说明" type="textarea">
         </el-input>
       </el-form-item>
 
-      <el-form-item :style='{"padding":"0","margin":"0"}'>
+      <el-form-item :style='{ "padding": "0", "margin": "0" }'>
         <el-button
-            :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0 20px 0 0","outline":"none","color":"rgba(255, 255, 255, 1)","borderRadius":"4px","background":"#3B2E7E","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'
-            type="primary" @click="onSubmit">提交
+          :style='{ "border": "0", "cursor": "pointer", "padding": "0 10px", "margin": "0 20px 0 0", "outline": "none", "color": "rgba(255, 255, 255, 1)", "borderRadius": "4px", "background": "#3B2E7E", "width": "auto", "lineHeight": "30px", "fontSize": "14px", "height": "30px" }'
+          type="primary" @click="onSubmit">提交
         </el-button>
         <el-button
-            :style='{"border":"0","cursor":"pointer","padding":"0 10px","margin":"0","outline":"none","color":"#000","borderRadius":"4px","background":"#9E9E9E","width":"auto","lineHeight":"30px","fontSize":"14px","height":"30px"}'
-            @click="back()">返回
+          :style='{ "border": "0", "cursor": "pointer", "padding": "0 10px", "margin": "0", "outline": "none", "color": "#000", "borderRadius": "4px", "background": "#9E9E9E", "width": "auto", "lineHeight": "30px", "fontSize": "14px", "height": "30px" }'
+          @click="back()">返回
         </el-button>
       </el-form-item>
     </el-form>
@@ -145,18 +124,18 @@ export default {
         yishixingming: [],
         touxiang: [],
         chongwunicheng: [
-          {required: true, message: '宠物昵称不能为空', trigger: 'blur'},
+          { required: true, message: '宠物昵称不能为空', trigger: 'blur' },
         ],
         yuyueshuoming: [
-          {required: true, message: '预约说明不能为空', trigger: 'blur'},
+          { required: true, message: '预约说明不能为空', trigger: 'blur' },
         ],
         yuyueshijian: [
-          {required: true, message: '预约时间不能为空', trigger: 'blur'},
+          { required: true, message: '预约时间不能为空', trigger: 'blur' },
         ],
         yonghuming: [],
         xingming: [],
         shouji: [
-          {validator: this.$validate.isMobile, trigger: 'blur'},
+          { validator: this.$validate.isMobile, trigger: 'blur' },
         ],
         sfsh: [],
         shhf: [],
@@ -245,7 +224,7 @@ export default {
         this.info()
       }
       // 获取用户信息
-      this.$http.get(this.userTableName + '/session', {emulateJSON: true}).then(res => {
+      this.$http.get(this.userTableName + '/session', { emulateJSON: true }).then(res => {
         if (res.data.code == 0) {
           var json = res.data.data;
           if ((json.yonghuming != '' && json.yonghuming) || json.yonghuming == 0) {
@@ -274,7 +253,7 @@ export default {
     // 多级联动参数
     // 多级联动参数
     info() {
-      this.$http.get(`zaixianyuyue/detail/${this.$route.query.id}`, {emulateJSON: true}).then(res => {
+      this.$http.get(`zaixianyuyue/detail/${this.$route.query.id}`, { emulateJSON: true }).then(res => {
         if (res.data.code == 0) {
           this.ruleForm = res.data.data;
         }
@@ -282,9 +261,15 @@ export default {
     },
     // 提交
     onSubmit() {
+      console.log("进入提交预约的方法");
+
       if (this.ruleForm.dingdanbianhao) {
         this.ruleForm.dingdanbianhao = String(this.ruleForm.dingdanbianhao)
       }
+
+
+
+
       //更新跨表属性
       var crossuserid;
       var crossrefid;
@@ -293,6 +278,8 @@ export default {
         if (valid) {
           const loading = this.$loading({});
           if (this.type == 'cross') {
+            console.log("进入提交预约cross的方法");
+
             var statusColumnName = localStorage.getItem('statusColumnName');
             var statusColumnValue = localStorage.getItem('statusColumnValue');
             if (statusColumnName && statusColumnName != '') {
@@ -316,6 +303,7 @@ export default {
             }
           }
           if (crossrefid && crossuserid) {
+            console.log("进入提交预约crossrefid && crossuserid的方法");
             this.ruleForm.crossuserid = crossuserid;
             this.ruleForm.crossrefid = crossrefid;
             var params = {
@@ -346,7 +334,7 @@ export default {
                       onClose: () => {
 
                       }
-                    });this.$router.go(-1);
+                    }); this.$router.go(-1);
                   }
                   else {
                     this.$message({
@@ -361,26 +349,49 @@ export default {
           }
           else {
 
+            console.log("进入提交预约else的方法");
+            console.log({ "yishixingming": this.ruleForm.yishixingming });
 
-            this.$http.post(`zaixianyuyue/${this.ruleForm.id ? 'update' : this.centerType ? 'save' : 'add'}`, this.ruleForm).then(res => {
-              if (res.data.code == 0) {
-                this.$message({
-                  message: '操作成功',
-                  type: 'success',
-                  duration: 1500,
-                  onClose: () => {
+            // 检查该医生是否在这个时间段有预约了
+            let flag = true;
+            this.$http.post('zaixianyuyue/query/exist', { 'yishixingming': this.ruleForm.yishixingming }).then(res => {
 
-                  }
-                });this.$router.go(-1);
-              }
-              else {
+              console.log("检查该医生是否在这个时间段有预约了");
+              console.log(res.data);
+              res.data.exist = '已存在预约';
+              if (res.data.exist == '已存在预约') {
+                flag = false;
                 this.$message({
-                  message: res.data.msg,
+                  message: '该医生时间段已存在预约, 请预约一小时后',
                   type: 'error',
-                  duration: 1500
+                  duration: 3000,
+                });
+
+              }
+
+              else {
+                this.$http.post(`zaixianyuyue/${this.ruleForm.id ? 'update' : this.centerType ? 'save' : 'add'}`, this.ruleForm).then(res => {
+                  if (res.data.code == 0) {
+                    this.$message({
+                      message: '操作成功',
+                      type: 'success',
+                      duration: 1500,
+                      onClose: () => {
+
+                      }
+                    }); this.$router.go(-1);
+                  }
+                  else {
+                    this.$message({
+                      message: res.data.msg,
+                      type: 'error',
+                      duration: 1500
+                    });
+                  }
                 });
               }
             });
+
           }
           loading.close()
         }

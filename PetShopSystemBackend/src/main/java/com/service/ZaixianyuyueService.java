@@ -32,7 +32,7 @@ public interface ZaixianyuyueService extends IService<ZaixianyuyueEntity> {
    	
    	PageUtils queryPage(Map<String, Object> params,Wrapper<ZaixianyuyueEntity> wrapper);
 
-   	
 
+	ZaixianyuyueVO existApply(String doctorName);
 }
 

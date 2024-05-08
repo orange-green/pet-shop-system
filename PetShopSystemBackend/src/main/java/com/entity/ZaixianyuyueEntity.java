@@ -124,6 +124,9 @@ public class ZaixianyuyueEntity<T> implements Serializable {
 	 */
 					
 	private String shhf;
+
+	// 服务评论
+	private String comment;
 	
 	
 	@JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
@@ -289,4 +292,12 @@ public class ZaixianyuyueEntity<T> implements Serializable {
 		return shhf;
 	}
 
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 }

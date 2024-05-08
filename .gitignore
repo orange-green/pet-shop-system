@@ -31,3 +31,5 @@ build/
 .vscode/
 dist/
 node_modules/
+PetShopSystemFront/package-lock.json
+PetShopSystemAdminFront/package-lock.json
