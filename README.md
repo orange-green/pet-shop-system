@@ -20,3 +20,21 @@
 - node 12.10.0
 - vue2
 - elementUI
+
+安装node, 我使用的nvm进行node环境管理
+
+nvm git 下载地址：[Releases · coreybutler/nvm-windows (github.com)](https://github.com/coreybutler/nvm-windows/releases)
+
+node下载地址：[Index of /dist/v12.10.0/ (nodejs.org)](https://nodejs.org/dist/v12.10.0/)
+
+安装好nvm后，下载node的压缩包解压到nvm的安装目录下
+
+使用nvm list 查看本机存在的node环境
+
+使用nvm use 具体node版本 来切换node环境
+
+使用node -v 查看node版本
+
+使用npm install 安装前端所需要的依赖
+
+使用npm run serve 启用前端项目
