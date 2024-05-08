@@ -46,3 +46,19 @@ npm config set registry https://registry.npmmirror.com
 使用npm run serve 启用前端项目
 ```
 
+
+
+###### mysql 数据库和数据表
+
+zaixianyuyue表 增加comment 字段
+shangjia表 增加 lisenceimage 字段
+
+
+
+#mysql 时区错误问题修正
+
+select now();
+show variables like "%time_zone%";
+set global time_zone = '+8:00'; 
+set time_zone = '+8:00'; 
+flush privileges;
