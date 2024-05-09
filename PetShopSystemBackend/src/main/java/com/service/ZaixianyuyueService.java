@@ -2,13 +2,15 @@ package com.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.IService;
-import com.utils.PageUtils;
 import com.entity.ZaixianyuyueEntity;
+import com.entity.view.ZaixianyuyueView;
+import com.entity.vo.ZaixianyuyueVO;
+import com.utils.PageUtils;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import com.entity.vo.ZaixianyuyueVO;
-import org.apache.ibatis.annotations.Param;
-import com.entity.view.ZaixianyuyueView;
 
 
 /**
@@ -33,6 +35,6 @@ public interface ZaixianyuyueService extends IService<ZaixianyuyueEntity> {
    	PageUtils queryPage(Map<String, Object> params,Wrapper<ZaixianyuyueEntity> wrapper);
 
 
-	ZaixianyuyueVO existApply(String doctorName);
+	ZaixianyuyueVO existApply(String doctorName, Date applyDate);
 }
 

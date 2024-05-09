@@ -1,22 +1,21 @@
 package com.service.impl;
 
-import org.springframework.stereotype.Service;
-import java.util.Map;
-import java.util.List;
-
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.utils.PageUtils;
-import com.utils.Query;
-
-
 import com.dao.ZaixianyuyueDao;
 import com.entity.ZaixianyuyueEntity;
-import com.service.ZaixianyuyueService;
-import com.entity.vo.ZaixianyuyueVO;
 import com.entity.view.ZaixianyuyueView;
+import com.entity.vo.ZaixianyuyueVO;
+import com.service.ZaixianyuyueService;
+import com.utils.PageUtils;
+import com.utils.Query;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service("zaixianyuyueService")
 public class ZaixianyuyueServiceImpl extends ServiceImpl<ZaixianyuyueDao, ZaixianyuyueEntity> implements ZaixianyuyueService {
@@ -40,8 +39,8 @@ public class ZaixianyuyueServiceImpl extends ServiceImpl<ZaixianyuyueDao, Zaixia
  	}
 
 	@Override
-	public ZaixianyuyueVO existApply(String doctorName) {
-		return baseMapper.existApply(doctorName);
+	public ZaixianyuyueVO existApply(String doctorName, Date applyDate) {
+		return baseMapper.existApply(doctorName, applyDate);
 	}
 
 

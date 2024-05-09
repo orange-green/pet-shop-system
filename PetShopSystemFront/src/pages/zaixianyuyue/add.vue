@@ -13,9 +13,9 @@
         <el-input v-model="ruleForm.zhanghao" :disabled="true || ro.zhanghao" clearable placeholder="账号"></el-input>
       </el-form-item>
       <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
-        label="姓名" prop="yishixingming">
-        <el-input v-model="ruleForm.yishixingming" :disabled="true || ro.yishixingming" clearable
-          placeholder="姓名"></el-input>
+        label="医师姓名" prop="yishixingming">
+        <el-input v-model="ruleForm.yishixingming" :disabled="false || ro.yishixingming" clearable
+          placeholder="医师姓名"></el-input>
       </el-form-item>
       <el-form-item v-if="type != 'cross' || (type == 'cross' && !ro.touxiang)"
         :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }' label="头像"
@@ -35,6 +35,11 @@
         <el-input v-model="ruleForm.chongwunicheng" :disabled="false || ro.chongwunicheng" clearable
           placeholder="宠物昵称"></el-input>
       </el-form-item>
+      <!-- <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
+        label="医师姓名" prop="yishixingming">
+        <el-input v-model="ruleForm.yishixingming" :disabled="false || ro.yishixingming" clearable
+          placeholder="医师姓名"></el-input>
+      </el-form-item> -->
       <el-form-item :style='{ "width": "50%", "padding": "10px", "margin": "0 0 10px", "background": "none" }'
         label="预约时间" prop="yuyueshijian">
         <el-date-picker v-model="ruleForm.yuyueshijian" :disabled="false || ro.yuyueshijian"
@@ -121,7 +126,9 @@ export default {
       rules: {
         dingdanbianhao: [],
         zhanghao: [],
-        yishixingming: [],
+        yishixingming: [
+          { required: true, message: '医师姓名不能为空', trigger: 'blur' },
+        ],
         touxiang: [],
         chongwunicheng: [
           { required: true, message: '宠物昵称不能为空', trigger: 'blur' },
@@ -262,13 +269,11 @@ export default {
     // 提交
     onSubmit() {
       console.log("进入提交预约的方法");
+      console.log(this.ruleForm)
 
       if (this.ruleForm.dingdanbianhao) {
         this.ruleForm.dingdanbianhao = String(this.ruleForm.dingdanbianhao)
       }
-
-
-
 
       //更新跨表属性
       var crossuserid;
@@ -354,43 +359,46 @@ export default {
 
             // 检查该医生是否在这个时间段有预约了
             let flag = true;
-            this.$http.post('zaixianyuyue/query/exist', { 'yishixingming': this.ruleForm.yishixingming }).then(res => {
+            console.log("请求参数ruleForm===========");
+            console.log(this.ruleForm);
 
-              console.log("检查该医生是否在这个时间段有预约了");
-              console.log(res.data);
-              res.data.exist = '已存在预约';
-              if (res.data.exist == '已存在预约') {
-                flag = false;
-                this.$message({
-                  message: '该医生时间段已存在预约, 请预约一小时后',
-                  type: 'error',
-                  duration: 3000,
-                });
+            console.log("请求参数ro===========");
+            console.log(this.ro);
+
+            this.$http.post(`zaixianyuyue/${this.ruleForm.id ? 'update' : this.centerType ? 'save' : 'add'}`, this.ruleForm).then(res => {
+              console.log("新增预约的返回结果");
+              console.log(res);
+              if (res.data.code == 0) {
+
+                if (res.data.exist == '已存在预约') {
+                  this.$message({
+                    message: '该医师该时间已存在预约，请将预约时间延后一小时',
+                    type: 'error',
+                    duration: 3000,
+                  });
+                }
+                else {
+                  this.$message({
+                    message: '操作成功',
+                    type: 'success',
+                    duration: 1500,
+                    onClose: () => {
+
+                    }
+                  }); this.$router.go(-1);
+                }
 
               }
-
               else {
-                this.$http.post(`zaixianyuyue/${this.ruleForm.id ? 'update' : this.centerType ? 'save' : 'add'}`, this.ruleForm).then(res => {
-                  if (res.data.code == 0) {
-                    this.$message({
-                      message: '操作成功',
-                      type: 'success',
-                      duration: 1500,
-                      onClose: () => {
-
-                      }
-                    }); this.$router.go(-1);
-                  }
-                  else {
-                    this.$message({
-                      message: res.data.msg,
-                      type: 'error',
-                      duration: 1500
-                    });
-                  }
+                this.$message({
+                  message: '请求异常，稍后重试',
+                  type: 'error',
+                  duration: 3000
                 });
+                this.$router.go(-1);
               }
             });
+
 
           }
           loading.close()

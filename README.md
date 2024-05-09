@@ -35,6 +35,8 @@ node下载地址：[Index of /dist/v12.10.0/ (nodejs.org)](https://nodejs.org/di
 
 使用node -v 查看node版本
 
+注意：请在cmd中运行node 、 npm命令，在powershell中运行会有问题。
+
 
 
 ```js
@@ -46,12 +48,18 @@ npm config set registry https://registry.npmmirror.com
 使用npm run serve 启用前端项目
 ```
 
+npm install 失败
 
+npm cache clean --force
+
+用管理员权限打开cmd执行 npm install
+
+删除C:\Users\{账户}\下的.npmrc文件
 
 ###### mysql 数据库和数据表
 
-zaixianyuyue表 增加comment 字段
-shangjia表 增加 lisenceimage 字段
+zaixianyuyue表 增加comment字段
+shangjia表 增加lisenceimage字段
 
 
 

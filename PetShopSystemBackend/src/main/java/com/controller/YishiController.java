@@ -1,48 +1,25 @@
 package com.controller;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-
+import com.annotation.IgnoreAuth;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.entity.YishiEntity;
 import com.entity.ZaixianyuyueEntity;
+import com.entity.view.YishiView;
 import com.entity.vo.ZaixianyuyueVO;
+import com.service.StoreupService;
+import com.service.TokenService;
+import com.service.YishiService;
 import com.service.ZaixianyuyueService;
-import com.utils.ValidatorUtils;
+import com.utils.MPUtil;
+import com.utils.PageUtils;
+import com.utils.R;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.annotation.IgnoreAuth;
+import org.springframework.web.bind.annotation.*;
 
-import com.entity.YishiEntity;
-import com.entity.view.YishiView;
-
-import com.service.YishiService;
-import com.service.TokenService;
-import com.utils.PageUtils;
-import com.utils.R;
-import com.utils.MPUtil;
-import com.utils.MapUtils;
-import com.utils.CommonUtil;
-import java.io.IOException;
-import com.service.StoreupService;
-import com.entity.StoreupEntity;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * 医师
@@ -297,27 +274,31 @@ public class YishiController {
 
         boolean flag = false;
 
+        System.out.println(ids);
+
         // 有预约未完成的医生不能删除
         List<YishiEntity> yishiEntities = yishiService.selectBatchIds(Arrays.asList(ids));
         for (YishiEntity yishi: yishiEntities) {
             EntityWrapper<ZaixianyuyueEntity> ew = new EntityWrapper<ZaixianyuyueEntity>();
             ew.eq("yishixingming", yishi.getYishixingming()).eq("sfsh", "待审核");
+            System.out.println("医师姓名:"+ yishi.getYishixingming());
             List<ZaixianyuyueVO> zaixianyuyueVOS = zaixianyuyueService.selectListVO(ew);
-
-            if (zaixianyuyueVOS != null || zaixianyuyueVOS.size() > 0) {
+            System.out.println(zaixianyuyueVOS);
+            if (zaixianyuyueVOS != null && zaixianyuyueVOS.size() > 0) {
                 flag = true;
                 break;
-
             }
 
         }
+
+        System.out.printf("flag:" + flag);
 
         if (flag) {
             return R.ok().put("msg", "该医师有未完成的预约");
         }
         else {
             yishiService.deleteBatchIds(Arrays.asList(ids));
-            return R.ok();
+            return R.ok().put("msg", "完成删除");
         }
 
     }

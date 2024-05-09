@@ -1,44 +1,23 @@
 package com.controller;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Date;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-
-import com.entity.vo.ZaixianyuyueVO;
-import com.utils.ValidatorUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.annotation.IgnoreAuth;
-
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.entity.ZaixianyuyueEntity;
 import com.entity.view.ZaixianyuyueView;
-
+import com.entity.vo.ZaixianyuyueVO;
 import com.service.ZaixianyuyueService;
-import com.service.TokenService;
+import com.utils.MPUtil;
 import com.utils.PageUtils;
 import com.utils.R;
-import com.utils.MPUtil;
-import com.utils.MapUtils;
-import com.utils.CommonUtil;
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 在线预约
@@ -110,18 +89,6 @@ public class ZaixianyuyueController {
     }
 
 
-    @RequestMapping("/query/exist")
-    public R exist(ZaixianyuyueEntity zaixianyuyue){
-        EntityWrapper< ZaixianyuyueEntity> ew = new EntityWrapper< ZaixianyuyueEntity>();
-
-//        ew.eq("yishixingming", zaixianyuyue.getYishixingming()).between("yuyueshijian", new Date())
-        String msg = "不存在预约";
-        ZaixianyuyueVO zaixianyuyueVO = zaixianyuyueService.existApply(zaixianyuyue.getYishixingming());
-        if (zaixianyuyueVO != null) {
-            msg = "已存在预约";
-        }
-        return R.ok(msg).put("exist", msg).put("data", zaixianyuyueVO);
-    }
 
 
     @RequestMapping("/query/finish")
@@ -172,8 +139,19 @@ public class ZaixianyuyueController {
     @RequestMapping("/add")
     public R add(@RequestBody ZaixianyuyueEntity zaixianyuyue, HttpServletRequest request){
     	//ValidatorUtils.validateEntity(zaixianyuyue);
-        zaixianyuyueService.insert(zaixianyuyue);
-        return R.ok();
+        String msg = "不存在预约";
+        ZaixianyuyueVO zaixianyuyueVO = zaixianyuyueService.existApply(zaixianyuyue.getYishixingming(), zaixianyuyue.getYuyueshijian());
+        if (zaixianyuyueVO != null) {
+            msg = "已存在预约";
+            return R.ok(msg).put("exist", msg).put("data", zaixianyuyueVO);
+
+        }
+        else {
+            zaixianyuyueService.insert(zaixianyuyue);
+        }
+
+
+        return R.ok(msg).put("exist", msg).put("data", zaixianyuyueVO);
     }
 
 

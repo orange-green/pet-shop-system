@@ -500,17 +500,34 @@ export default {
 			var ids = id ? [Number(id)] : this.dataListSelections.map(item => {
 				return Number(item.id);
 			});
+
+			console.log("ids============");
+			console.log(ids);
 			await this.$confirm(`确定进行[${id ? "删除" : "批量删除"}]操作?`, "提示", {
 				confirmButtonText: "确定",
 				cancelButtonText: "取消",
 				type: "warning"
 			}).then(async () => {
+				// console.log("进入删除医生的函数，参数ids为" + ids.toString);
 				await this.$http({
 					url: "yishi/delete",
 					method: "post",
 					data: ids
 				}).then(async ({ data }) => {
-					if (data && data.code === 0) {
+					console.log("删除医生的返回结果");
+					console.log(data);
+					if (data && data.msg == '该医师有未完成的预约') {
+						this.$message({
+							message: "该医师有未完成的预约,现在不能删除",
+							type: "error",
+							duration: 1500,
+							onClose: () => {
+								this.search();
+							}
+						});
+
+					}
+					else {
 						for (let x in ids) {
 							await this.$http.get('storeup/list', {
 								params: {
@@ -539,6 +556,9 @@ export default {
 								this.search();
 							}
 						});
+					}
+
+					if (data && data.code === 0) {
 
 					} else {
 						this.$message.error(data.msg);

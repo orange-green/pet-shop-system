@@ -1,15 +1,15 @@
 package com.dao;
 
-import com.entity.ZaixianyuyueEntity;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import java.util.List;
-import java.util.Map;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
-
-import org.apache.ibatis.annotations.Param;
-import com.entity.vo.ZaixianyuyueVO;
+import com.entity.ZaixianyuyueEntity;
 import com.entity.view.ZaixianyuyueView;
+import com.entity.vo.ZaixianyuyueVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -33,5 +33,5 @@ public interface ZaixianyuyueDao extends BaseMapper<ZaixianyuyueEntity> {
 	ZaixianyuyueView selectView(@Param("ew") Wrapper<ZaixianyuyueEntity> wrapper);
 
 
-	ZaixianyuyueVO existApply(@Param("doctorName") String doctorName);
+	ZaixianyuyueVO existApply(@Param("doctorName") String doctorName, @Param("applyDate") Date applyDate);
 }
