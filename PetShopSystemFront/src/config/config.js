@@ -1,6 +1,6 @@
 export default {
     baseUrl: 'http://localhost:8080/springbootpavyhdan/',
-	name: '/springbootpavyhdan',
+    name: '/springbootpavyhdan',
     indexNav: [
         {
             name: '医师',

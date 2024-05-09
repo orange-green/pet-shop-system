@@ -7,7 +7,7 @@
 				ref="rgsForm" class="rgs-form" :model="rgsForm" :rules="rules">
 				<div v-if="true"
 					:style='{ "margin": "0 0 10px 0", "color": "#000", "textAlign": "center", "width": "100%", "lineHeight": "64px", "fontSize": "20px", "fontWeight": "600" }'
-					class="title">基于Spring Boot的安信宠物医疗美容系统注册</div>
+					class="title">安信宠物医疗美容系统注册</div>
 				<el-form-item :style='{ "width": "80%", "padding": "0", "margin": "0 auto 5px", "height": "auto" }'
 					class="list-item" v-if="tableName == 'yonghu'">
 					<div v-if="true"

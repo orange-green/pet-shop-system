@@ -4,7 +4,7 @@ const path = require('path')
 function resolve(dir) {
     return path.join(__dirname, dir)
 }
-function publicPath(){
+function publicPath() {
     if (process.env.NODE_ENV == 'production') {
         return "././";
     } else {
@@ -26,7 +26,7 @@ module.exports = {
             }
         }
     },
-lintOnSave: false,
+    lintOnSave: false,
     devServer: {
         host: "0.0.0.0", //指定使用一个 host。默认是 localhost，这里默认值即可
         port: 8082, //指定端口
@@ -43,21 +43,21 @@ lintOnSave: false,
             }
         }
     },
-chainWebpack(config) {
-    config.module
-      .rule('svg')
-      .exclude.add(resolve('src/icons'))
-      .end()
-    config.module
-      .rule('icons')
-      .test(/\.svg$/)
-      .include.add(resolve('src/icons'))
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({
-        symbolId: 'icon-[name]'
-      })
-      .end()
-}
+    chainWebpack(config) {
+        config.module
+            .rule('svg')
+            .exclude.add(resolve('src/icons'))
+            .end()
+        config.module
+            .rule('icons')
+            .test(/\.svg$/)
+            .include.add(resolve('src/icons'))
+            .end()
+            .use('svg-sprite-loader')
+            .loader('svg-sprite-loader')
+            .options({
+                symbolId: 'icon-[name]'
+            })
+            .end()
+    }
 }
