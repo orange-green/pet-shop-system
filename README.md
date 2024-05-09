@@ -89,6 +89,8 @@ taskkill /pid  进程号 /f
 
 ##### 部署访问
 
+
+
 ###### 前后端分离部署
 
 后端使用java, 可打成jar包运行
@@ -107,7 +109,9 @@ PetShopSystemFront 用户前端
 
 ###### 后端混合部署
 
-需要将管理前端和用户前端的代码 通过npm run build 打包后 将dist目录复制到PetShopSystemBackend\src\main\resources目录下对应的admin目录和front目录下
+需要将管理前端和用户前端的代码 通过npm run build 打包后 将dist目录复制到PetShopSystemBackend\src\main\resources目录下对应的admin目录和front目录下。
+
+注意：访问网页前先清理浏览器的缓存！
 
 管理端访问：http://localhost:8080/springbootpavyhdan/admin/dist/index.html
 
