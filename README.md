@@ -70,3 +70,48 @@ show variables like "%time_zone%";
 set global time_zone = '+8:00'; 
 set time_zone = '+8:00'; 
 flush privileges;
+
+
+
+
+
+###### 8080端口被占用的
+
+netstat -ano | findstr 8080
+
+taskkill /pid  进程号 /f
+
+
+
+
+
+
+
+##### 部署访问
+
+###### 前后端分离部署
+
+后端使用java, 可打成jar包运行
+
+PetShopSystemBackend 后端
+
+前端使用node运行
+
+PetShopSystemAdminFront 管理前端
+
+PetShopSystemFront 用户前端
+
+
+
+
+
+###### 后端混合部署
+
+需要将管理前端和用户前端的代码 通过npm run build 打包后 将dist目录复制到PetShopSystemBackend\src\main\resources目录下对应的admin目录和front目录下
+
+管理端访问：http://localhost:8080/springbootpavyhdan/admin/dist/index.html
+
+用户端访问：http://localhost:8080/springbootpavyhdan/front/dist/index.html
+
+
+
